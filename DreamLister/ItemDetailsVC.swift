@@ -17,6 +17,9 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     @IBOutlet weak var detailsField: CustomTextField!
     
     var stores = [Store]()
+    
+    // optional because we're not always editing in this view
+    var itemToEdit: Item?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +49,7 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
 //        
 //        let store6 = Store(context: context)
 //        store6.name = "Apple Store"
-//        
+//
 //        stores.append(store1)
 //        stores.append(store2)
 //        stores.append(store3)
@@ -56,6 +59,10 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         
         //ad.saveContext()
         getStores()
+        
+        if itemToEdit != nil {
+            loadItemData()
+        }
         
     }
 
@@ -90,14 +97,21 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
             self.storePicker.reloadAllComponents()
         }
         catch {
-            // handle error
+            let error = error as NSError
+            print("\(error)")
         }
         
     }
     
     @IBAction func savePressed(_ sender: UIButton) {
         
-        let item = Item(context: context)
+        var item: Item!
+        
+        if itemToEdit == nil {
+            item = Item(context: context)
+        } else {
+            item = itemToEdit
+        }
         
         if let title = titleField.text {
             item.title = title
@@ -114,5 +128,26 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         item.toStore = stores[storePicker.selectedRow(inComponent: 0)]
         ad.saveContext()
         _ = navigationController?.popViewController(animated: true)
+    }
+    
+    func loadItemData() {
+        if let item = itemToEdit {
+            titleField.text = item.title
+            priceField.text = "\(item.price)"
+            detailsField.text = item.details
+            
+            if let store = item.toStore {
+                var index = 0
+                
+                repeat {
+                    let s = stores[index]
+                    if s.name == store.name {
+                        storePicker.selectRow(index, inComponent: 0, animated: false)
+                        break
+                    }
+                    index += 1
+                } while (index < stores.count)
+            }
+        }
     }
 }
