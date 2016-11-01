@@ -172,6 +172,9 @@
                                     <constraint firstAttribute="height" constant="100" id="UCF-vz-kal"/>
                                     <constraint firstAttribute="width" constant="100" id="hLq-cj-JS9"/>
                                 </constraints>
+                                <connections>
+                                    <action selector="addImage:" destination="yR0-kN-c1r" eventType="touchUpInside" id="AUm-4F-siB"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="t3B-fX-OLk" customClass="CustomTextField" customModule="DreamLister" customModuleProvider="target">
                                 <rect key="frame" x="126" y="74" width="233" height="40"/>
@@ -264,12 +267,16 @@
                     <navigationItem key="navigationItem" title="Add/Edit" id="jQh-XG-yLW">
                         <barButtonItem key="rightBarButtonItem" systemItem="trash" id="ehI-vW-mjl">
                             <color key="tintColor" red="1" green="0.037026895019999999" blue="0.02519126931" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="deletePressed:" destination="yR0-kN-c1r" id="Tov-Ee-tbF"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="detailsField" destination="A4x-rc-LH7" id="okC-fy-uvN"/>
                         <outlet property="priceField" destination="ygc-hf-rrK" id="Pmr-vV-HcW"/>
                         <outlet property="storePicker" destination="0uF-xt-scS" id="VxB-0q-W7B"/>
+                        <outlet property="thumbImage" destination="Lof-2e-Q0A" id="Rtg-ka-3kA"/>
                         <outlet property="titleField" destination="t3B-fX-OLk" id="cfh-jF-4QT"/>
                     </connections>
                 </viewController>
