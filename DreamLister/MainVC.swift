@@ -76,6 +76,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
         // internal controller
         let controller = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
         // external controller = internal controller
+        controller.delegate = self
         self.controller = controller
         
         do {

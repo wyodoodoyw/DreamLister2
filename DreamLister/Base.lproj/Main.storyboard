@@ -222,12 +222,12 @@
                                 <state key="normal" title="Save Item">
                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="savePressed:" destination="yR0-kN-c1r" eventType="touchUpInside" id="aq1-gS-VFw"/>
+                                </connections>
                             </button>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0uF-xt-scS">
                                 <rect key="frame" x="27.5" y="330" width="320" height="216"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="216" id="B3A-eP-pLQ"/>
-                                </constraints>
                             </pickerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -262,6 +262,12 @@
                             <color key="tintColor" red="1" green="0.037026895019999999" blue="0.02519126931" alpha="1" colorSpace="calibratedRGB"/>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="detailsField" destination="A4x-rc-LH7" id="okC-fy-uvN"/>
+                        <outlet property="priceField" destination="ygc-hf-rrK" id="Pmr-vV-HcW"/>
+                        <outlet property="storePicker" destination="0uF-xt-scS" id="VxB-0q-W7B"/>
+                        <outlet property="titleField" destination="t3B-fX-OLk" id="cfh-jF-4QT"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a9E-Te-UVe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
