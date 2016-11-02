@@ -84,38 +84,43 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
     }
     
     func attemptFetch() {
-        // fetch request
-        let fetchRequest: NSFetchRequest<Item> = Item.fetchRequest()
         
-        // sorting default is by date (Newest)
+        let fetchRequest: NSFetchRequest<Item> = Item.fetchRequest()
         let dateSort = NSSortDescriptor(key: "created", ascending: false)
         let priceSort = NSSortDescriptor(key: "price", ascending: true)
         let titleSort = NSSortDescriptor(key: "title", ascending: true)
-        let typeSort = NSSortDescriptor(key: "type", ascending: true)
         
         if segment.selectedSegmentIndex == 0 {
+            
             fetchRequest.sortDescriptors = [dateSort]
+            
         } else if segment.selectedSegmentIndex == 1 {
+            
             fetchRequest.sortDescriptors = [priceSort]
+            
         } else if segment.selectedSegmentIndex == 2 {
+            
             fetchRequest.sortDescriptors = [titleSort]
-        } else if segment.selectedSegmentIndex == 3 {
-            fetchRequest.sortDescriptors = [typeSort]
         }
         
         
-        // internal controller
         let controller = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
-        // external controller = internal controller
+        
         controller.delegate = self
+        
         self.controller = controller
         
         do {
+            
             try controller.performFetch()
+            
         } catch {
+            
             let error = error as NSError
             print("\(error)")
+            
         }
+        
     }
     
     @IBAction func segmentChange(_ sender: UISegmentedControl) {
@@ -126,12 +131,10 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
     
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        // tableView is about to update, listens for changes
         tableView.beginUpdates()
     }
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        // once content has been changed
         tableView.endUpdates()
     }
     
