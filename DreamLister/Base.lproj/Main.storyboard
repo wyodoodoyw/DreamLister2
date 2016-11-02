@@ -31,8 +31,12 @@
                                     <segment title="Newest"/>
                                     <segment title="Price"/>
                                     <segment title="Title"/>
+                                    <segment title="Type"/>
                                 </segments>
                                 <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <action selector="segmentChange:" destination="BYZ-38-t0r" eventType="valueChanged" id="Pmq-bq-Luq"/>
+                                </connections>
                             </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="128" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="o46-Zu-ju3">
                                 <rect key="frame" x="16" y="132" width="343" height="535"/>
@@ -184,7 +188,7 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="next"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Price" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ygc-hf-rrK" customClass="CustomTextField" customModule="DreamLister" customModuleProvider="target">
                                 <rect key="frame" x="126" y="124" width="233" height="40"/>
@@ -194,7 +198,7 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="next"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Details" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="A4x-rc-LH7" customClass="CustomTextField" customModule="DreamLister" customModuleProvider="target">
                                 <rect key="frame" x="16" y="174" width="343" height="60"/>
@@ -204,63 +208,103 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
                             </textField>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="v3n-aW-kJS">
-                                <rect key="frame" x="28" y="254" width="320" height="403"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select a Store" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9bk-9S-23T">
-                                        <rect key="frame" x="106.5" y="0.0" width="107" height="21"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="21" id="PPp-Zr-p5D"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0uF-xt-scS">
-                                        <rect key="frame" x="0.0" y="21" width="320" height="352"/>
-                                    </pickerView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aqI-Zq-XIy">
-                                        <rect key="frame" x="0.0" y="373" width="320" height="30"/>
-                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="ZKP-ha-ShR"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="20"/>
-                                        <state key="normal" title="Save Item">
-                                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="savePressed:" destination="yR0-kN-c1r" eventType="touchUpInside" id="aq1-gS-VFw"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Store:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9bk-9S-23T">
+                                <rect key="frame" x="26" y="250" width="46" height="21"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="aqI-Zq-XIy" secondAttribute="trailing" id="5Hc-Qj-sAJ"/>
-                                    <constraint firstItem="aqI-Zq-XIy" firstAttribute="leading" secondItem="v3n-aW-kJS" secondAttribute="leading" id="OMZ-xJ-sD2"/>
-                                    <constraint firstItem="aqI-Zq-XIy" firstAttribute="centerX" secondItem="v3n-aW-kJS" secondAttribute="centerX" id="Vef-iV-4oz"/>
-                                    <constraint firstItem="9bk-9S-23T" firstAttribute="centerX" secondItem="v3n-aW-kJS" secondAttribute="centerX" id="ZSQ-l7-Ofo"/>
+                                    <constraint firstAttribute="height" constant="21" id="PPp-Zr-p5D"/>
                                 </constraints>
-                            </stackView>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <pickerView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0uF-xt-scS">
+                                <rect key="frame" x="16" y="443" width="343" height="216"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </pickerView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aqI-Zq-XIy">
+                                <rect key="frame" x="16" y="627" width="343" height="30"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="ZKP-ha-ShR"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="20"/>
+                                <state key="normal" title="Save Item">
+                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="savePressed:" destination="yR0-kN-c1r" eventType="touchUpInside" id="aq1-gS-VFw"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MQt-qy-u19">
+                                <rect key="frame" x="83" y="250" width="266" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="itb-dA-i2O"/>
+                                    <constraint firstAttribute="width" constant="266" id="qH9-k6-I5t"/>
+                                </constraints>
+                                <state key="normal" title="Select a Store"/>
+                                <connections>
+                                    <action selector="selectStoreButtonPressed:" destination="yR0-kN-c1r" eventType="touchUpInside" id="cUX-CV-Nx8"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XE8-Ye-TFF">
+                                <rect key="frame" x="26" y="288" width="42.5" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="Cl7-7d-wuW"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ga0-bB-U8i">
+                                <rect key="frame" x="83" y="288" width="266" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="266" id="eFs-6X-EqO"/>
+                                    <constraint firstAttribute="height" constant="30" id="neJ-nw-Mxj"/>
+                                </constraints>
+                                <state key="normal" title="Select a Type"/>
+                                <connections>
+                                    <action selector="selectStoreButtonPressed:" destination="yR0-kN-c1r" eventType="touchUpInside" id="fm5-7c-Djf"/>
+                                    <action selector="selectTypeButtonPressed:" destination="yR0-kN-c1r" eventType="touchUpInside" id="HbW-e0-nrc"/>
+                                </connections>
+                            </button>
+                            <pickerView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j28-d9-7IA">
+                                <rect key="frame" x="16" y="441" width="343" height="216"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="bw4-Rh-1Mm" firstAttribute="top" secondItem="v3n-aW-kJS" secondAttribute="bottom" constant="10" id="F57-fm-Zhw"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ga0-bB-U8i" secondAttribute="trailing" constant="10" id="BDF-Ab-aEB"/>
+                            <constraint firstItem="ga0-bB-U8i" firstAttribute="top" secondItem="MQt-qy-u19" secondAttribute="bottom" constant="8" id="IzK-cI-VFG"/>
                             <constraint firstItem="t3B-fX-OLk" firstAttribute="leading" secondItem="LKm-yY-Hqk" secondAttribute="trailing" constant="10" id="JBm-Yi-LEs"/>
+                            <constraint firstItem="bw4-Rh-1Mm" firstAttribute="top" secondItem="0uF-xt-scS" secondAttribute="bottom" constant="8" id="JFb-z2-Y0L"/>
+                            <constraint firstItem="XE8-Ye-TFF" firstAttribute="top" secondItem="9bk-9S-23T" secondAttribute="bottom" constant="17" id="Jip-Qc-kZT"/>
                             <constraint firstItem="A4x-rc-LH7" firstAttribute="top" secondItem="ygc-hf-rrK" secondAttribute="bottom" constant="10" id="MKc-cq-LOQ"/>
                             <constraint firstItem="LKm-yY-Hqk" firstAttribute="centerX" secondItem="Lof-2e-Q0A" secondAttribute="centerX" id="Mo2-TT-CnY"/>
                             <constraint firstItem="Lof-2e-Q0A" firstAttribute="leading" secondItem="e9X-A6-lPK" secondAttribute="leadingMargin" id="NYF-F0-G1p"/>
                             <constraint firstItem="Lof-2e-Q0A" firstAttribute="top" secondItem="ECc-k3-pWW" secondAttribute="bottom" id="No0-Pt-38V"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="0uF-xt-scS" secondAttribute="trailing" id="Pmp-Xk-ZBB"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ygc-hf-rrK" secondAttribute="trailing" id="QvN-1U-4rw"/>
-                            <constraint firstItem="v3n-aW-kJS" firstAttribute="centerX" secondItem="e9X-A6-lPK" secondAttribute="centerX" id="VEM-tf-Ikt"/>
+                            <constraint firstItem="j28-d9-7IA" firstAttribute="trailing" secondItem="e9X-A6-lPK" secondAttribute="trailingMargin" id="T0a-F0-SmD"/>
+                            <constraint firstItem="9bk-9S-23T" firstAttribute="leading" secondItem="e9X-A6-lPK" secondAttribute="leadingMargin" constant="10" id="VHX-De-fWh"/>
+                            <constraint firstItem="0uF-xt-scS" firstAttribute="leading" secondItem="e9X-A6-lPK" secondAttribute="leadingMargin" id="WDb-JB-JYi"/>
                             <constraint firstItem="t3B-fX-OLk" firstAttribute="top" secondItem="ECc-k3-pWW" secondAttribute="bottom" constant="10" id="Zow-rD-hgj"/>
                             <constraint firstItem="LKm-yY-Hqk" firstAttribute="centerY" secondItem="Lof-2e-Q0A" secondAttribute="centerY" id="akQ-oR-1Ey"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="MQt-qy-u19" secondAttribute="trailing" constant="10" id="hNW-dY-wIW"/>
+                            <constraint firstItem="XE8-Ye-TFF" firstAttribute="leading" secondItem="e9X-A6-lPK" secondAttribute="leadingMargin" constant="10" id="hV9-Mb-TgL"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="aqI-Zq-XIy" secondAttribute="trailing" id="kng-gj-LVE"/>
+                            <constraint firstItem="MQt-qy-u19" firstAttribute="top" secondItem="A4x-rc-LH7" secondAttribute="bottom" constant="16" id="nTm-Ce-gyx"/>
                             <constraint firstItem="ygc-hf-rrK" firstAttribute="leading" secondItem="LKm-yY-Hqk" secondAttribute="trailing" constant="10" id="ptC-vm-aXf"/>
-                            <constraint firstItem="v3n-aW-kJS" firstAttribute="top" secondItem="A4x-rc-LH7" secondAttribute="bottom" constant="20" id="qIZ-fw-p1c"/>
+                            <constraint firstItem="aqI-Zq-XIy" firstAttribute="leading" secondItem="e9X-A6-lPK" secondAttribute="leadingMargin" id="sm5-qy-zco"/>
+                            <constraint firstItem="j28-d9-7IA" firstAttribute="leading" secondItem="e9X-A6-lPK" secondAttribute="leadingMargin" id="tDC-26-Nkv"/>
+                            <constraint firstItem="bw4-Rh-1Mm" firstAttribute="top" secondItem="aqI-Zq-XIy" secondAttribute="bottom" constant="10" id="tRo-WH-Oo8"/>
                             <constraint firstItem="A4x-rc-LH7" firstAttribute="leading" secondItem="e9X-A6-lPK" secondAttribute="leadingMargin" id="tuX-Zn-rbD"/>
                             <constraint firstAttribute="trailingMargin" secondItem="t3B-fX-OLk" secondAttribute="trailing" id="u7c-Si-6z6"/>
                             <constraint firstAttribute="trailingMargin" secondItem="A4x-rc-LH7" secondAttribute="trailing" id="ury-9d-bfL"/>
+                            <constraint firstItem="9bk-9S-23T" firstAttribute="top" secondItem="A4x-rc-LH7" secondAttribute="bottom" constant="16" id="wpX-UI-9kh"/>
+                            <constraint firstItem="bw4-Rh-1Mm" firstAttribute="top" secondItem="j28-d9-7IA" secondAttribute="bottom" constant="10" id="xSd-bg-3S8"/>
                             <constraint firstItem="ygc-hf-rrK" firstAttribute="top" secondItem="t3B-fX-OLk" secondAttribute="bottom" constant="10" id="zLR-rA-fBx"/>
                         </constraints>
                     </view>
@@ -275,9 +319,13 @@
                     <connections>
                         <outlet property="detailsField" destination="A4x-rc-LH7" id="okC-fy-uvN"/>
                         <outlet property="priceField" destination="ygc-hf-rrK" id="Pmr-vV-HcW"/>
+                        <outlet property="saveButton" destination="aqI-Zq-XIy" id="Gof-ef-wGQ"/>
+                        <outlet property="selectStoreButton" destination="MQt-qy-u19" id="XI1-ph-tLE"/>
+                        <outlet property="selectTypeButton" destination="ga0-bB-U8i" id="gb3-iK-L2T"/>
                         <outlet property="storePicker" destination="0uF-xt-scS" id="VxB-0q-W7B"/>
                         <outlet property="thumbImage" destination="Lof-2e-Q0A" id="Rtg-ka-3kA"/>
                         <outlet property="titleField" destination="t3B-fX-OLk" id="cfh-jF-4QT"/>
+                        <outlet property="typePicker" destination="j28-d9-7IA" id="FVT-3X-lL2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a9E-Te-UVe" userLabel="First Responder" sceneMemberID="firstResponder"/>

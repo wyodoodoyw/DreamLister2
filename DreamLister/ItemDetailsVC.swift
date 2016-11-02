@@ -12,12 +12,17 @@ import CoreData
 class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var storePicker: UIPickerView!
+    @IBOutlet weak var typePicker: UIPickerView!
     @IBOutlet weak var titleField: CustomTextField!
     @IBOutlet weak var priceField: CustomTextField!
     @IBOutlet weak var detailsField: CustomTextField!
     @IBOutlet weak var thumbImage: UIImageView!
+    @IBOutlet weak var selectStoreButton: UIButton!
+    @IBOutlet weak var selectTypeButton: UIButton!
+    @IBOutlet weak var saveButton: UIButton!
     
     var stores = [Store]()
+    var types = [ItemType]()
     
     // optional because we're not always editing in this view
     var itemToEdit: Item?
@@ -34,36 +39,42 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         storePicker.delegate = self
         storePicker.dataSource = self
         
+        typePicker.delegate = self
+        typePicker.dataSource = self
+        
         imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         
-//        let store1 = Store(context: context)
-//        store1.name = "Best Buy"
-//        
-//        let store2 = Store(context: context)
-//        store2.name = "Tesla Dealership"
-//        
-//        let store3 = Store(context: context)
-//        store3.name = "Walmart"
-//        
-//        let store4 = Store(context: context)
-//        store4.name = "Amazon.ca"
-//        
-//        let store5 = Store(context: context)
-//        store5.name = "EB Games"
-//        
-//        let store6 = Store(context: context)
-//        store6.name = "Apple Store"
-//
-//        stores.append(store1)
-//        stores.append(store2)
-//        stores.append(store3)
-//        stores.append(store4)
-//        stores.append(store5)
-//        stores.append(store6)
+        let store1 = Store(context: context)
+        store1.name = "Best Buy"
+        
+        let store2 = Store(context: context)
+        store2.name = "Tesla Dealership"
+        
+        let store3 = Store(context: context)
+        store3.name = "Walmart"
+        
+        let store4 = Store(context: context)
+        store4.name = "Amazon.ca"
+        
+        let store5 = Store(context: context)
+        store5.name = "EB Games"
+        
+        let store6 = Store(context: context)
+        store6.name = "Apple Store"
+        
+        let type1 = ItemType(context: context)
+        type1.type = "Electronics"
+        
+        let type2 = ItemType(context: context)
+        type2.type = "Vehicles"
+        
+        let type3 = ItemType(context: context)
+        type3.type = "Personal Care"
         
         //ad.saveContext()
         getStores()
+        getItemTypes()
         
         if itemToEdit != nil {
             loadItemData()
@@ -73,23 +84,40 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
 
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
-        let store = stores[row]
-        return store.name
+        if pickerView == storePicker {
+            let store = stores[row]
+            return store.name
+        } else {
+            let itemType = types[row]
+            return itemType.type
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        
-        return stores.count
+        if pickerView == storePicker {
+            return stores.count
+        } else {
+            return types.count
+        }
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         // number of columns
-        
         return 1
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        // update when selected
+        if pickerView == storePicker {
+            selectStoreButton.titleLabel?.text = stores[row].name
+            storePicker.isHidden = true
+            typePicker.isHidden = true
+            saveButton.isHidden = false
+        } else {
+            selectTypeButton.titleLabel?.text = types[row].type
+            typePicker.isHidden = true
+            storePicker.isHidden = true
+            saveButton.isHidden = false
+        }
     }
     
     func getStores() {
@@ -106,6 +134,18 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
             print("\(error)")
         }
         
+    }
+    
+    func getItemTypes() {
+        let fetchRequest: NSFetchRequest<ItemType> = ItemType.fetchRequest()
+        
+        do {
+            self.types = try context.fetch(fetchRequest)
+            self.typePicker.reloadAllComponents()
+        } catch {
+            let error = error as NSError
+            print("\(error)")
+        }
     }
     
     @IBAction func savePressed(_ sender: UIButton) {
@@ -136,6 +176,7 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         }
         
         item.toStore = stores[storePicker.selectedRow(inComponent: 0)]
+        item.toItemType = types[typePicker.selectedRow(inComponent: 0)]
         ad.saveContext()
         _ = navigationController?.popViewController(animated: true)
     }
@@ -145,21 +186,23 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
             titleField.text = item.title
             priceField.text = "\(item.price)"
             detailsField.text = item.details
+            selectStoreButton.titleLabel?.text = item.toStore?.name
+            selectTypeButton.titleLabel?.text = item.toItemType?.type
             
             thumbImage.image = item.toImage?.image as? UIImage
             
-            if let store = item.toStore {
-                var index = 0
-                
-                repeat {
-                    let s = stores[index]
-                    if s.name == store.name {
-                        storePicker.selectRow(index, inComponent: 0, animated: false)
-                        break
-                    }
-                    index += 1
-                } while (index < stores.count)
-            }
+//            if let store = item.toStore {
+//                var index = 0
+//                
+//                repeat {
+//                    let s = stores[index]
+//                    if s.name == store.name {
+//                        storePicker.selectRow(index, inComponent: 0, animated: false)
+//                        break
+//                    }
+//                    index += 1
+//                } while (index < stores.count)
+//            }
         }
     }
     
@@ -184,5 +227,16 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         imagePicker.dismiss(animated: true, completion: nil)
         
     }
+    
+    @IBAction func selectStoreButtonPressed(_ sender: UIButton) {
+        saveButton.isHidden = true
+        storePicker.isHidden = false
+    }
+    
+    @IBAction func selectTypeButtonPressed(_ sender: UIButton) {
+        saveButton.isHidden = true
+        typePicker.isHidden = false
+    }
+    
     
 }
