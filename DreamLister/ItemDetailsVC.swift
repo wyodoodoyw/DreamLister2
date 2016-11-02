@@ -45,6 +45,10 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         
+        ////////////////////////////////////////////////
+        // Stores
+        ////////////////////////////////////////////////
+        
         let store1 = Store(context: context)
         store1.name = "Best Buy"
         
@@ -63,14 +67,60 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         let store6 = Store(context: context)
         store6.name = "Apple Store"
         
+        ////////////////////////////////////////////////
+        // Types
+        ////////////////////////////////////////////////
+        
         let type1 = ItemType(context: context)
-        type1.type = "Electronics"
+        type1.type = "Books"
         
         let type2 = ItemType(context: context)
-        type2.type = "Vehicles"
+        type2.type = "Music"
         
         let type3 = ItemType(context: context)
-        type3.type = "Personal Care"
+        type3.type = "Movies & TV"
+        
+        let type4 = ItemType(context: context)
+        type4.type = "Electronics"
+        
+        let type5 = ItemType(context: context)
+        type5.type = "Software"
+        
+        let type6 = ItemType(context: context)
+        type6.type = "Video Games"
+        
+        let type7 = ItemType(context: context)
+        type7.type = "Home"
+        
+        let type8 = ItemType(context: context)
+        type8.type = "Pets"
+        
+        let type9 = ItemType(context: context)
+        type9.type = "Yard & Garden"
+        
+        let type10 = ItemType(context: context)
+        type10.type = "Health & Beauty"
+        
+        let type11 = ItemType(context: context)
+        type11.type = "Toys"
+        
+        let type12 = ItemType(context: context)
+        type12.type = "Baby"
+        
+        let type13 = ItemType(context: context)
+        type13.type = "Clothing"
+        
+        let type14 = ItemType(context: context)
+        type14.type = "Jewels"
+        
+        let type15 = ItemType(context: context)
+        type15.type = "Sports"
+        
+        let type16 = ItemType(context: context)
+        type16.type = "Outdoors"
+        
+        let type17 = ItemType(context: context)
+        type17.type = "Automotive"
         
         //ad.saveContext()
         getStores()
@@ -164,7 +214,7 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         item.toImage = picture
         
         if let title = titleField.text {
-            item.title = title
+        item.title = title
         }
         
         if let price = priceField.text {
@@ -186,8 +236,8 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
             titleField.text = item.title
             priceField.text = "\(item.price)"
             detailsField.text = item.details
-            selectStoreButton.titleLabel?.text = item.toStore?.name
-            selectTypeButton.titleLabel?.text = item.toItemType?.type
+            selectStoreButton.setTitle(item.toStore?.name, for: .normal)
+            selectTypeButton.setTitle(item.toItemType?.type, for: .normal)
             
             thumbImage.image = item.toImage?.image as? UIImage
             
