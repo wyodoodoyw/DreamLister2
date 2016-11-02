@@ -43,7 +43,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if let objs = controller.fetchedObjects, objs.count > 0 {
+        if let objs = controller.fetchedObjects , objs.count > 0 {
             let item = objs[indexPath.row]
             performSegue(withIdentifier: "ItemDetailsVC", sender: item)
         }
@@ -123,7 +123,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
         
     }
     
-    @IBAction func segmentChange(_ sender: UISegmentedControl) {
+    @IBAction func segmentChange(_ sender: AnyObject) {
         // called when segment section selected
         attemptFetch()
         tableView.reloadData()
@@ -143,7 +143,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
         switch(type) {
        
         case.insert:
-            if let indexPath = indexPath {
+            if let indexPath = newIndexPath {
                 tableView.insertRows(at: [indexPath], with: .fade)
             }
             break
